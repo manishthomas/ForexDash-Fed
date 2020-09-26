@@ -1,0 +1,38 @@
+https://next.json-generator.com/
+
+[
+  {
+    'repeat(100)': {
+      refernce_no: '{{integer([100000], [9999999])}}',
+      chnl: '{{random("FedMobile", "FedNet", "WebFrx")}}',
+      name: '{{firstName()}} {{surname()}}',
+      fyc_amt: '{{floating(1000, 4000, 2, "$0,0")}}',
+      currency: '{{random("USD", "AED", "EUR","CAD","AUD","SGD")}}',
+      customerid:'{{integer([123456], [199999])}}',
+      accountno:'{{integer([10000000000000], [99999999999999])}}',
+      request_date: '{{moment(this.date(new Date(2019, 0, 1), new Date())).format("DD-MMM-YYYY")}}',
+      status: '{{random("P", "F", "A","R")}}',
+		phone: '+91 {{integer([7777777777], [999999999])}}',
+      email(tags) {
+        return `${this.name.first}.${this.name.last}@${this.company}${tags.domainZone()}`.toLowerCase();
+      },
+      panno(tags) {
+       var result = "";
+  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var number = "0123456789";
+  var charactersLength = characters.length;
+  var numberLength = number.length;
+  for (var i = 0; i < 5; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  for (var j = 0; j < 4; j++) {
+    result += number.charAt(Math.floor(Math.random() * numberLength));
+  }
+  result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  return result;
+      },
+       passportno:'J{{integer([1000000], [9999999])}}',
+      travel_country:'{{country()}}'
+    }
+  }
+]

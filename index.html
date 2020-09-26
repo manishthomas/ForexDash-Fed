@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Forex Admin</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700,800&display=swap" rel="stylesheet" />
+
+  <link type="text/css" rel="stylesheet" href="css/lib/materialize.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="css/lib/daterangepicker.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="css/lib/datatables.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="css/lib/dropzone.min.css" media="screen,projection" />
+
+  <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
+</head>
+
+<body>
+  <main>
+    <!-- Login -->
+    <section id="login_section" class="vertical-align-wrap page">
+      <h4 id="forex_heading" class="dark-blue">
+        <span class="wt-6">Forex Card </span><br />
+        <span class="wt-3">Issuance Portal</span>
+      </h4>
+
+      <div class="vertical-align-middle">
+        <div class="ml-5">
+          <div class="card hoverable">
+            <div class="card-content white-text">
+              <div class="row mb-0">
+                <span class="card-title dark-blue wt-4"><span class="login-heading">Login</span></span>
+                <form id="login_form" class="col s12">
+                  <div class="row mb-0 mt-1">
+                    <div class="input-field col s12 mb-0">
+                      <input id="username" type="text" class="validate" autocomplete="off" />
+                      <label for="username">Username</label>
+                      <span class="helper-text" data-error="Username required"></span>
+                    </div>
+                    <div class="input-field col s12 mb-0">
+                      <input id="password" type="password" class="validate" autocomplete="new-password" />
+                      <label for="password">Password</label>
+                      <span class="helper-text" data-error="Password required"></span>
+                    </div>
+                    <div class="input-field col s12 center-align">
+                      <button id="login" class="waves-effect waves-light btn-primary gradient-btn wt-4" type="submit"
+                        name="login">
+                        LOGIN
+                        <img src="img/icons/arrow-forward.svg" class="login-arrow-i" />
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /.Login -->
+
+    <!-- Forex Applications -->
+    <section id="list_section" class="page display-none">
+      <div class="top-bar pl-3">
+        <h4 class="l-blue">Forex Applications</h4>
+        <div id="login-details" class="valign-wrapper">
+          <div id="login-logo" class="inline-block">M</div>
+          <div class="inline-block">
+            Manish<br />
+            Dev
+          </div>
+          <div id="logout" class="inline-block waves-effect waves-circle waves-blue"
+            onclick="window.location.reload(true)">
+            <img src="img/icons/log-out.svg" class="logout-i" />
+          </div>
+        </div>
+      </div>
+      <div class="application-list mt-2">
+        <div class="row">
+          <div id="filter_block" class="col s11">
+            <div class="card-panel shdw row">
+              <div id="filter_btns" class="input-field col s6">
+                <a id="all_btn" class="active waves-effect waves-blue btn">All</a>
+                <a class="waves-effect waves-blue btn">Pending</a>
+                <a class="waves-effect waves-blue btn">Forwarded</a>
+                <a class="waves-effect waves-blue btn">Approved</a>
+                <a class="waves-effect waves-blue btn">Rejected</a>
+              </div>
+              <div class="col s6">
+                <div class="input-field col">
+                  <select>
+                    <option value="" disabled selected>Select Currency</option>
+                    <option value="1">$ - Dollar</option>
+                    <option value="2">Option</option>
+                    <option value="3">Option</option>
+                  </select>
+                  <label>Currency</label>
+                </div>
+                <div class="input-field col">
+                  <div id="date_range_block" class="date-range-selector">
+                    <div class="calender-block inline-block">
+                      <img src="img/icons/calendar-outline.svg" class="calender-i" />
+                    </div>
+                    <div class="inline-block date-picker-div">
+                      <span id="start_date"></span>
+                      <img src="img/icons/arrow-forward.svg" class="calender-i" />
+                      <span id="end_date"></span>
+                      <label>Date</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="datatable_block" class="col s11">
+            <div class="card-panel">
+              <table id="datatable" class="display" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th>Reference No.</th>
+                    <th>Channel</th>
+                    <th>Name</th>
+                    <th>FYC Amount</th>
+                    <th>Account No.</th>
+                    <th>Date of Request</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Application Details -->
+    <section id="details_section" class="vertical-align-wrap page display-none">
+      <div class="row">
+        <h4 class="pl-3 l-blue">Application Details</h4>
+        <!-- Right Main Container -->
+        <div class="col s12 m9">
+          <div class="row">
+            <!-- Right Details Container -->
+            <div class="col s12 m8">
+              <div class="col s12">
+                <div class="card">
+                  <div class="row details-container card-content">
+                    <span class="card-title">Personal Details</span>
+                    <div class="details-content col s6 m4">
+                      <div class="details-heading">Name</div>
+                      <div class="details-value">Abcde Efchgi</div>
+                    </div>
+                    <div class="details-content col s6 m4">
+                      <div class="details-heading">Customer ID</div>
+                      <div class="details-value">1234567</div>
+                    </div>
+                    <div class="details-content col s6 m4">
+                      <div class="details-heading">Account No.</div>
+                      <div class="details-value">123456578312312</div>
+                    </div>
+                    <div class="details-content col s6 m4">
+                      <div class="details-heading">Mobile No.</div>
+                      <div class="details-value">+91 8547454363</div>
+                    </div>
+                    <div class="details-content col s6 m4">
+                      <div class="details-heading">Email ID</div>
+                      <div class="details-value">
+                        abcdefghitlkak@gmail.com
+                      </div>
+                    </div>
+                    <div class="col w-100"></div>
+                    <div class="details-content col s6 m4">
+                      <div class="details-heading">Passport</div>
+                      <div class="details-value">ABCD34DF</div>
+                    </div>
+                    <div class="details-content col s6 m4">
+                      <div class="details-heading">PAN No.</div>
+                      <div class="details-value">QWERT1234E</div>
+                    </div>
+                  </div>
+                  <div class="card-action">
+                    <label>
+                      <input id="personal_details_verified" type="checkbox" class="filled-in" />
+                      <span>Personal Details of Customer Verified</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col s12">
+                <div class="card">
+                  <div class="card-content">
+                    <span class="card-title">Documents</span>
+                    <div class="section center">
+                      <!-- <h5>Section 1</h5> -->
+                      <a class="waves-effect waves-light btn upload-btn modal-trigger" href="#passport_modal">
+                        <img src="img/icons/passport.svg" class="passport-i" />Passport</a>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="section center">
+                      <!-- <h5>Section 2</h5> -->
+                      <a class="waves-effect waves-light btn upload-btn modal-trigger" href="#visa_modal">
+                        <img src="img/icons/visa.svg" class="passport-i" />VISA / Travel Ticket</a>
+                    </div>
+                  </div>
+                  <div class="card-action">
+                    <label>
+                      <input id="docs_verified" type="checkbox" class="filled-in" />
+                      <span>Documents Verified</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- \.Right Details Container -->
+            <!-- Left Details Container -->
+            <div class="col s12 m4">
+              <div id="charge_block" class="card">
+                <div class="card-content">
+                  <span class="card-title">Charges</span>
+                  <table id="charge_table">
+                    <tbody>
+                      <tr>
+                        <td>Travel Country</td>
+                        <td class="travel_country">USA</td>
+                      </tr>
+                      <tr>
+                        <td><span class="currency">USD</span> Amount</td>
+                        <td>5000</td>
+                      </tr>
+                      <tr>
+                        <td><span class="currency">USD</span> Rate</td>
+                        <td>70</td>
+                      </tr>
+                      <tr>
+                        <td>INR Amount</td>
+                        <td>350000</td>
+                      </tr>
+                      <tr>
+                        <td>Issuance Fee</td>
+                        <td>100</td>
+                      </tr>
+                      <tr>
+                        <td>GST</td>
+                        <td>200</td>
+                      </tr>
+                      <tr>
+                        <td>Service Charge</td>
+                        <td>100</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td>Total</td>
+                        <td>&#x20B9;350400</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <div class="card-action">
+                  <label>
+                    <input id="rate_verified" type="checkbox" class="filled-in" />
+                    <span>Exchange rate changed Verified</span>
+                  </label>
+                </div>
+              </div>
+
+              <div id="lrs_block" class="card">
+                <div class="card-content">
+                  <!-- <span class="card-title">Card Title</span> -->
+                  <div class="input-field mb-0">
+                    <input id="lrs_limit" type="text" class="validate" autocomplete="off" />
+                    <label for="lrs_limit">LRS Limit *</label>
+                    <span class="helper-text" data-error="LRS limit required"></span>
+                  </div>
+                </div>
+                <div class="card-action">
+                  <label>
+                    <input id="lrs_verified" type="checkbox" class="filled-in" />
+                    <span>LRS limit is within RBI guidelines.</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- \.Left Details Container -->
+          </div>
+        </div>
+        <!-- \.Right Main Container -->
+
+        <!-- Left Main Container -->
+        <div id="left_main_container" class="col s12 m3">
+          <div id="submit_block" class="card">
+            <div class="card-content">
+              <!-- <span class="card-title">Card Title</span> -->
+              <div class="code_validation">
+                <label>
+                  <input type="checkbox" class="filled-in" disabled checked />
+                  <span>Valid PAN</span>
+                </label>
+                <label>
+                  <input type="checkbox" class="filled-in" disabled checked />
+                  <span>KYC & Profile Check</span>
+                </label>
+                <label>
+                  <input type="checkbox" class="filled-in" disabled />
+                  <span>No Existing Forex Card</span>
+                </label>
+                <label>
+                  <input type="checkbox" class="filled-in" disabled />
+                  <span>Account balance Available</span>
+                </label>
+              </div>
+
+              <div class="manual_validation">
+                <label>
+                  <input type="checkbox" class="filled-in" disabled />
+                  <span>Personal Details Verified</span>
+                </label>
+                <label>
+                  <input type="checkbox" class="filled-in" disabled />
+                  <span>Documents Verified</span>
+                </label>
+                <label>
+                  <input type="checkbox" class="filled-in" disabled />
+                  <span>Exchange Rate</span>
+                </label>
+                <label>
+                  <input type="checkbox" class="filled-in" disabled />
+                  <span>LRS Limit Checked</span>
+                </label>
+                <label>
+                  <input type="checkbox" class="filled-in" disabled />
+                  <span>Passport Expiry Date</span>
+                </label>
+              </div>
+            </div>
+            <div class="card-action center">
+              <a id="reject_btn" class="waves-effect waves-light btn-reject gradient-btn wt-4 modal-trigger"
+                href="#reject_modal">
+                Reject
+              </a>
+              <a disabled id="approve_btn"
+                class="disabled waves-effect waves-light btn-submit gradient-btn wt-4 modal-trigger"
+                href="#approve_modal">
+                Approve
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- \.Left Container -->
+    </section>
+    <!-- /.Application Details -->
+  </main>
+
+  <!-- Modal -->
+  <!-- Passport upload Modal -->
+  <div id="passport_modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4 class="l-blue">
+        <img src="img/icons/passport.svg" class="passport-m-i" />Passport
+      </h4>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="passport_expiry" type="text" class="validate" autocomplete="off" />
+          <label for="passport_expiry">Passport Expiry Date *</label>
+          <span class="helper-text" data-error="Expiry Date required"></span>
+        </div>
+        <div class="col s12">
+          <div id="passport_show_block" class="col s12"></div>
+          <div id="passport_upload_block" class="display-none">
+            <div class="col s12 m6">
+              <form id="passportFront" class="dropzone" action="FileUpload" method="post" enctype="multipart/form-data">
+              </form>
+            </div>
+            <div class="col s12 m6">
+              <form id="passportBack" class="dropzone" action="FileUpload" method="post" enctype="multipart/form-data">
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="doc-verified-check">
+          <label>
+            <input id="passport_check" type="checkbox" class="filled-in" />
+            <span>The above Passport image is verified.</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer center">
+      <div class="passport_upload_btns">
+        <a id="passport_upload_btn" href="#!" class="waves-effect waves-blue btn-flat">Upload New Photo</a>
+        <a id="passport_old_btn" href="#!" class="waves-effect waves-blue btn-flat display-none">View Current Photo</a>
+      </div>
+      <div class="passport_verified_btns display-none">
+        <a id="passport_verified_btn" href="#!" class="waves-effect waves-light btn-doc gradient-btn wt-3">Passport
+          Verified</a>
+      </div>
+    </div>
+    <img src="img/icons/close.svg" class="modal-close close-i" />
+  </div>
+
+  <!-- Visa/Travel Doc upload Modal -->
+  <div id="visa_modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4 class="l-blue">
+        <img src="img/icons/visa.svg" class="visa-m-i" />VISA / Travel Ticket
+      </h4>
+      <div class="container">
+        <div class="row">
+          <div class="input-field col s6">
+            <select id="extra_doctype_sel">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="visa">VISA</option>
+              <option value="travel">Travel Ticket</option>
+            </select>
+            <label>Doc Type</label>
+            <span class="helper-text" data-error="Choose Doc Type"></span>
+
+          </div>
+          <div id="visa_show_block" class="col s12"></div>
+          <div id="visa_upload_block" class="col s12 display-none">
+            <form id="uploadVisa" class="dropzone" action="FileUpload" method="post" enctype="multipart/form-data">
+            </form>
+          </div>
+          <div class="doc-verified-check">
+            <label>
+              <input id="visa_check" type="checkbox" class="filled-in" />
+              <span>The above VISA/Travel Ticket is verified.</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer center">
+      <div class="visa_upload_btns">
+        <a id="visa_upload_btn" href="#!" class="waves-effect waves-blue btn-flat">Upload New Photo</a>
+        <a id="visa_old_btn" href="#!" class="waves-effect waves-blue btn-flat display-none">View Current Photo</a>
+      </div>
+      <div class="visa_verified_btns display-none">
+        <a id="visa_verified_btn" href="#!" class="waves-effect waves-light btn-doc gradient-btn wt-3">Documents
+          Verified</a>
+      </div>
+    </div>
+    <img src="img/icons/close.svg" class="modal-close close-i" />
+  </div>
+
+  <!-- Reject Modal -->
+  <div id="reject_modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4 class="l-blue">Reject Application</h4>
+      <div class="row container mt-3">
+        <div class="input-field col s12">
+          <textarea id="reject_remark" class="materialize-textarea" data-length="200"></textarea>
+          <label for="reject_remark">Remark *</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a id="reject_request_btn" class="waves-effect waves-light btn-reject gradient-btn wt-4" href="#!">
+        Reject
+      </a>
+    </div>
+    <img src="img/icons/close.svg" class="modal-close close-i" />
+  </div>
+
+  <!-- Approve Modal -->
+  <div id="approve_modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4 class="l-blue">Approve Application</h4>
+      <div class="row container mt-3">
+        <div class="input-field col s6">
+          <input id="umrn_no" type="text" class="validate" autocomplete="off" />
+          <label for="umrn_no">UMRN No. *</label>
+          <span class="helper-text" data-error="UMRN No. required"></span>
+        </div>
+        <div class="input-field col s12">
+          <textarea id="approve_remark" class="materialize-textarea" data-length="200"></textarea>
+          <label for="approve_remark">Remark</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a id="approve_request_btn" class="waves-effect waves-light btn-submit gradient-btn wt-4" href="#!">
+        Approve
+      </a>
+    </div>
+    <img src="img/icons/close.svg" class="modal-close close-i" />
+  </div>
+  <!-- \.Modal -->
+
+  <!-- <script type="text/javascript" src="js/lib/jquery-3.4.1.min.js"></script> -->
+  <!-- <script type="text/javascript" src="js/lib/materialize.min.js"></script> -->
+  <!-- <script type="text/javascript" src="js/lib/moment.min.js"></script> -->
+  <!-- <script type="text/javascript" src="js/lib/daterangepicker.min.js"></script> -->
+  <!-- <script type="text/javascript" src="js/lib/datatables.min.js"></script> -->
+  <!-- <script type="text/javascript" src="js/lib/dropzone.min.js"></script> -->
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"
+    integrity="sha512-Izh34nqeeR7/nwthfeE0SI3c8uhFSnqxV0sI9TvTcXiFJkMd6fB644O64BRq2P/LA/+7eRvCw4GmLsXksyTHBg=="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"
+    integrity="sha512-9WciDs0XP20sojTJ9E7mChDXy6pcO0qHpwbEJID1YVavz2H6QBz5eLoDD8lseZOb2yGT8xDNIV7HIe1ZbuiDWg=="
+    crossorigin="anonymous"></script>
+
+
+  <script type="text/javascript" src="js/init.js"></script>
+  <script type="text/javascript" src="js/login.js"></script>
+  <script type="text/javascript" src="js/view.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/fileUpload.js"></script>
+</body>
+
+</html>
